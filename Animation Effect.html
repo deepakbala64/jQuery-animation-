@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ben 10 Animation Demo</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <style>
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            25% {
+                background-position: 100% 50%;
+            }
+            50% {
+                background-position: 0% 50%;
+            }
+            75% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        body {
+            margin: 0;
+            height: 100vh;
+            background-image: linear-gradient(270deg, #ff7e5f, #feb47b, #86a8e7, #91eae4);
+            background-size: 200% 200%;
+            animation: gradientAnimation 7s ease infinite;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h1 {
+            font-size: 48px;
+            background: linear-gradient(135deg, #4CAF50, #2E7D32, #1B5E20);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            border: 4px solid #2E7D32;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .button-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            justify-items: center;
+            margin: 20px;
+        }
+
+        button {
+            background: linear-gradient(135deg, #4CAF50, #2E7D32);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+            width: 100%;
+        }
+
+        button:hover {
+            background: linear-gradient(135deg, #2E7D32, #4CAF50);
+        }
+
+        #box {
+            width: 100px;
+            height: 100px;
+            margin: 20px;
+            display: none;
+            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7C4msP3TbNJtTimthDf6w2cpeXdTofHmoQA&s');
+            background-size: cover;
+            border: 5px solid #4CAF50;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            position: relative; /* Added to enable movement */
+        }
+    </style>
+    <script>
+    $(document).ready(function() {
+        let moving = false; // Track whether the box is moving
+        let box = $("#box");
+
+        $("#fadeIn").click(function() { box.fadeIn(); });
+        $("#fadeOut").click(function() { box.fadeOut(); });
+        $("#slideDown").click(function() { box.slideDown(); });
+        $("#slideUp").click(function() { box.slideUp(); });
+        $("#animateWidth").click(function() { box.animate({ width: "300px" }, 2000); });
+        $("#animateHeight").click(function() { box.animate({ height: "300px" }, 2000); });
+        $("#toggle").click(function() { box.toggle(); });
+        
+        $("#start").click(function() {
+            if (!moving) { // Start moving only if not already moving
+                moving = true;
+                box.animate({ left: '+=400px' }, 2000, function() {
+                    box.css('left', '0'); // Reset position
+                    moving = false; // Allow moving again
+                });
+            }
+        });
+
+        $("#stop").click(function() { box.stop(); });
+        $("#bounce").click(function() { box.effect("bounce", { times: 3 }, 500); });
+        $("#shake").click(function() { box.effect("shake", { times: 3 }, 500); });
+        
+        // Additional Effects
+        $("#fadeToggle").click(function() { box.fadeToggle(); });
+        $("#pulsate").click(function() { box.effect("pulsate", { times: 5 }, 1000); });
+        $("#grow").click(function() { box.animate({ width: "150px", height: "150px" }, 500).animate({ width: "100px", height: "100px" }, 500); });
+        
+        // Hide and Show Effects
+        $("#hide").click(function() { box.hide(); });
+        $("#show").click(function() { box.show(); });
+    });
+    </script>
+</head>
+<body>
+
+    <h1>Ben 10 Animation Demo</h1>
+    <div class="button-container">
+        <button id="fadeIn">Fade In</button>
+        <button id="fadeOut">Fade Out</button>
+        <button id="slideDown">Slide Down</button>
+        <button id="slideUp">Slide Up</button>
+        <button id="animateWidth">Animate Width</button>
+        <button id="animateHeight">Animate Height</button>
+        <button id="toggle">Toggle Visibility</button>
+        <button id="start">Start Move</button>
+        <button id="stop">Stop Move</button>
+        <button id="bounce">Bounce</button>
+        <button id="shake">Shake</button>
+        <button id="fadeToggle">Fade Toggle</button>
+        <button id="pulsate">Pulsate</button>
+        <button id="grow">Grow</button>
+        <button id="hide">Hide</button>
+        <button id="show">Show</button>
+    </div>
+
+    <div id="box"></div>
+
+</body>
+</html>
